@@ -1,8 +1,8 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
+    apiKey: "AIzaSyDPkiY9WV152Sa6AOkx4ySISWNhYoIH0c0",
     authDomain: "schoolradiusfinder-b7597.firebaseapp.com",
     projectId: "schoolradiusfinder-b7597",
     storageBucket: "schoolradiusfinder-b7597.firebasestorage.app",
@@ -12,7 +12,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+export const auth = getAuth(app);
 
 onAuthStateChanged(auth, (user) => {
     if (!user) {
