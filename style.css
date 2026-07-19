@@ -9,14 +9,14 @@ body {
 /* ---------------- TITLE ---------------- */
 h2 {
     text-align: center;
-    margin: 15px 0;
+    margin: 2px 0;
     font-weight: 600;
     letter-spacing: 0.5px;
 }
 
 /* ---------------- CONTROL PANEL ---------------- */
 .controls {
-    margin: 10px;
+    margin: 5px;
     padding: 15px;
     background: #272727;
     border-radius: 12px;
