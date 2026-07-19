@@ -567,6 +567,19 @@ function showCustomPopup(message) {
     document.getElementById("customPopupOverlay").style.display = "block";
 }
 
+
+window.searchStudent = searchStudent;
+window.locateFromLink = locateFromLink;
+window.filterSchoolDropdown = filterSchoolDropdown;
+window.selectSchoolFromDropdown = selectSchoolFromDropdown;
+window.confirmStudent = confirmStudent;
+window.confirmSchool = confirmSchool;
+window.analyze = analyze;
+window.focusCircleForPrint = focusCircleForPrint;
+window.toggleSchoolNames = toggleSchoolNames;
+window.closeCustomPopup = closeCustomPopup;
+window.printMap = printMap;
+
 function closeCustomPopup() {
     document.getElementById("customPopupOverlay").style.display = "none";
 }
