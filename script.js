@@ -337,23 +337,34 @@ function analyze() {
 // ---------------- FILTER CUSTOM SCHOOL LIST BY DISTANCE ----------------
 function filterCustomSchools(exactRadiusKm, searchRadiusKm) {
 
-    const schoolsInsideCircle = customSchoolList.filter(school => {
+    // Schools to highlight (inside circle + 500m buffer)
+const schoolsToHighlight = customSchoolList.filter(school => {
 
-        // Skip the targeted school entirely — it's the reference point
-        // for the circle, not a "found" result.
-        if (school.id === targetSchoolPlaceId) return false;
+    if (school.id === targetSchoolPlaceId) return false;
 
-        const distance = getDistance(
-            studentPos.lat,
-            studentPos.lng,
-            school.lat,
-            school.lng
-        );
+    const distance = getDistance(
+        studentPos.lat,
+        studentPos.lng,
+        school.lat,
+        school.lng
+    );
 
-        // Use the bigger (buffered) radius so schools just outside the
-        // exact circle still get highlighted.
-        return distance <= searchRadiusKm;
-    });
+    return distance <= searchRadiusKm;
+});
+
+
+// Schools to count and list (inside exact circle only)
+const schoolsInsideCircle = schoolsToHighlight.filter(school => {
+
+    const distance = getDistance(
+        studentPos.lat,
+        studentPos.lng,
+        school.lat,
+        school.lng
+    );
+
+    return distance <= exactRadiusKm;
+});
 
     const visibleSchools = schoolsInsideCircle.filter(school => {
 
@@ -390,7 +401,7 @@ function filterCustomSchools(exactRadiusKm, searchRadiusKm) {
     document.getElementById("schoolNamesList").innerHTML = namesListHtml;
     updateSchoolNamesDisplay();
 
-    visibleSchools.forEach(school => {
+    schoolsToHighlight.forEach(school => {
 
         const position = { lat: school.lat, lng: school.lng };
 
