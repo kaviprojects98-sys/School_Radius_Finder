@@ -567,6 +567,11 @@ function showCustomPopup(message) {
     document.getElementById("customPopupOverlay").style.display = "block";
 }
 
+function closeCustomPopup() {
+    document.getElementById("customPopupOverlay").style.display = "none";
+}
+
+// Im doing this becaus of the onclick in html. I need to add this for every single function I declear
 
 window.searchStudent = searchStudent;
 window.locateFromLink = locateFromLink;
@@ -579,7 +584,3 @@ window.focusCircleForPrint = focusCircleForPrint;
 window.toggleSchoolNames = toggleSchoolNames;
 window.closeCustomPopup = closeCustomPopup;
 window.printMap = printMap;
-
-function closeCustomPopup() {
-    document.getElementById("customPopupOverlay").style.display = "none";
-}
