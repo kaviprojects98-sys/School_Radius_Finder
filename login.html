@@ -18,25 +18,12 @@ placeholder="Password">
 
 
 <script type="module">
-
-
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
     getAuth,
     signInWithEmailAndPassword,
     onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-    
-
-import { initializeApp } 
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import { 
-getAuth,
-signInWithEmailAndPassword
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
 
 const firebaseConfig = {
     apiKey: "AIzaSyDPkiY9WV152Sa6AOkx4ySISWNhYoIH0c0",
@@ -46,12 +33,9 @@ const firebaseConfig = {
     messagingSenderId: "1049648379138",
     appId: "1:1049648379138:web:d756f1688264b30d3e3e1b",
     measurementId: "G-V69ZJT16YL"
-
 };
 
-
 const app = initializeApp(firebaseConfig);
-
 const auth = getAuth(app);
 
 onAuthStateChanged(auth, (user) => {
@@ -60,36 +44,18 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
+window.login = function () {
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
 
-window.login = function(){
-
-let email =
-document.getElementById("email").value;
-
-let password =
-document.getElementById("password").value;
-
-
-signInWithEmailAndPassword(
-auth,
-email,
-password
-)
-
-.then(()=>{
-
-window.location.href="index.html";
-
-})
-
-.catch((error)=>{
-
-alert("Wrong login");
-
-});
-
+    signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+            window.location.href = "index.html";
+        })
+        .catch((error) => {
+            alert("Wrong login");
+        });
 }
-
 </script>
 
 </body>
