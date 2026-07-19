@@ -71,7 +71,7 @@ function initMap() {
     placesService = new google.maps.places.PlacesService(map);
 }
 
-window.onload = initMap;
+window.initMap = initMap;
 
 // ---------------- GEOCODE ----------------
 function geocode(address, callback) {
