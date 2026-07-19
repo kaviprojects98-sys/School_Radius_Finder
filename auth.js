@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDPkiY9WV152Sa6AOkx4ySISWNhYoIH0c0",
@@ -19,3 +19,9 @@ onAuthStateChanged(auth, (user) => {
         window.location.href = "login.html";
     }
 });
+
+window.logout = function () {
+    signOut(auth).then(() => {
+        window.location.href = "login.html";
+    });
+};
