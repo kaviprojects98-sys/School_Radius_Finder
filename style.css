@@ -1,0 +1,261 @@
+/* ---------------- BASE ---------------- */
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f4f6f9;
+    color: #222;
+}
+
+/* ---------------- TITLE ---------------- */
+h2 {
+    text-align: center;
+    margin: 15px 0;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* ---------------- CONTROL PANEL ---------------- */
+.controls {
+    margin: 10px;
+    padding: 15px;
+    background: #272727;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgb(26, 9, 9);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ---------------- INPUT ---------------- */
+input {
+    width: 240px;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    transition: 0.2s;
+    font-size: 14px;
+}
+
+input:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 6px rgb(160, 160, 160);
+}
+
+/* ---------------- AUTOCOMPLETE (school picker) ---------------- */
+.autocomplete-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.autocomplete-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 0 0 8px 8px;
+    max-height: 180px;
+    overflow-y: auto;
+    z-index: 1500;
+    display: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.autocomplete-dropdown div {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.autocomplete-dropdown div:hover {
+    background: #f0f4fa;
+}
+
+/* ---------------- BUTTONS ---------------- */
+button {
+    padding: 10px 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #76797c;
+    color: white;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #357bd8;
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* special red exit button */
+#exitPreview {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 99999;
+    background: #e74c3c;
+    color: white;
+}
+
+/* ---------------- MAP ---------------- */
+#map {
+    height: 80vh;
+    width: 100%;
+    border-top: 1px solid #ddd;
+}
+
+/* ---------------- SCHOOL LABEL ---------------- */
+.label-style {
+    background: rgba(255,255,255,0.95);
+    padding: 3px 7px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* ---------------- DISTANCE HUD ---------------- */
+#distanceBox {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: rgba(255,255,255,0.95);
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-weight: bold;
+    font-size: 14px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+    z-index: 999999;
+    max-width: 280px;
+}
+
+#toggleNamesBtn {
+    margin-top: 8px;
+    padding: 4px 10px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+#schoolNamesList {
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+#schoolNamesList ul {
+    margin: 4px 0 0 18px;
+    padding: 0;
+}
+
+/* ---------------- FULLSCREEN MODE (unused legacy, kept harmless) ---------------- */
+.preview-mode .controls {
+    display: none !important;
+}
+
+.preview-mode #map {
+    height: 100%;
+}
+
+/* ============================================================
+   PRINT MODE
+   This class is added by JS (focusCircleForPrint) BEFORE the
+   map is resized/fitted, so the layout is already correct when
+   fitBounds() runs. The @media print block mirrors the same
+   rules as a safety net for manual Ctrl+P printing.
+   ============================================================ */
+body.print-mode .controls,
+body.print-mode #exitPreview,
+body.print-mode #printbtn,
+body.print-mode #toggleNamesBtn,
+body.print-mode h2 {
+    display: none !important;
+}
+
+body.print-mode #map {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100vw !important;
+    height: 100vh !important;
+    margin: 0 !important;
+    border: none !important;
+    z-index: 1;
+}
+
+body.print-mode #distanceBox {
+    position: fixed !important;
+    top: 12px;
+    right: 12px;
+    z-index: 999999;
+}
+
+@media print {
+
+    @page {
+        size: A4 landscape;
+        margin: 0;
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background: white;
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    #map, #map *,
+    #distanceBox, #distanceBox * {
+        visibility: visible;
+    }
+
+    h2,
+    .controls,
+    #exitPreview,
+    #printbtn,
+    #toggleNamesBtn {
+        display: none !important;
+    }
+
+    #map {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        width: 100vw !important;
+        height: 100vh !important;
+        margin: 0 !important;
+        border: none !important;
+    }
+
+    #distanceBox {
+        position: fixed !important;
+        top: 12px;
+        right: 12px;
+        margin: 0;
+        z-index: 999999;
+        background: white;
+        border: 1px solid #333;
+        padding: 10px 14px;
+        font-weight: normal;
+        box-shadow: none;
+    }
+
+    .gm-style {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
