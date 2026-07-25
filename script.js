@@ -345,43 +345,49 @@ function analyze() {
 // ---------------- FILTER CUSTOM SCHOOL LIST BY DISTANCE ----------------
 function filterCustomSchools(exactRadiusKm, searchRadiusKm) {
 
-    // Schools to highlight (inside circle + 500m buffer)
-const schoolsToHighlight = customSchoolList.filter(school => {
+    // FIX: exclusion + gender rules are now applied ONCE, up front,
+    // before splitting into the buffered/exact-radius lists. Previously
+    // these rules were only applied to `visibleSchools` (used for the
+    // count/name list), while the green markers drawn on the map were
+    // built from `schoolsToHighlight`, which never had gender/exclusion
+    // applied — so an excluded or gender-filtered school's marker still
+    // showed up on the map even though it correctly disappeared from the
+    // count and the names list.
+    const eligibleSchools = customSchoolList.filter(school => {
 
-    if (school.id === targetSchoolPlaceId) return false;
-
-    const distance = getDistance(
-        studentPos.lat,
-        studentPos.lng,
-        school.lat,
-        school.lng
-    );
-
-    return distance <= searchRadiusKm;
-});
-
-
-// Schools to count and list (inside exact circle only)
-const schoolsInsideCircle = schoolsToHighlight.filter(school => {
-
-    const distance = getDistance(
-        studentPos.lat,
-        studentPos.lng,
-        school.lat,
-        school.lng
-    );
-
-    return distance <= exactRadiusKm;
-});
-
-    const visibleSchools = schoolsInsideCircle.filter(school => {
-
+        if (school.id === targetSchoolPlaceId) return false;
         if (excludedPlaceIds.includes(school.id)) return false;
 
         if (studentGender === "girl" && school.id === 13) return false;
         if (studentGender === "boy" && school.id === 12) return false;
 
         return true;
+    });
+
+    // Schools to highlight (inside circle + 500m buffer)
+    const schoolsToHighlight = eligibleSchools.filter(school => {
+
+        const distance = getDistance(
+            studentPos.lat,
+            studentPos.lng,
+            school.lat,
+            school.lng
+        );
+
+        return distance <= searchRadiusKm;
+    });
+
+    // Schools to count and list (inside exact circle only)
+    const visibleSchools = schoolsToHighlight.filter(school => {
+
+        const distance = getDistance(
+            studentPos.lat,
+            studentPos.lng,
+            school.lat,
+            school.lng
+        );
+
+        return distance <= exactRadiusKm;
     });
 
     // Human-readable label for the category dropdown's selected value.
