@@ -353,12 +353,15 @@ function filterCustomSchools(exactRadiusKm, searchRadiusKm) {
     // applied — so an excluded or gender-filtered school's marker still
     // showed up on the map even though it correctly disappeared from the
     // count and the names list.
+    //
+    // Gender rule (only one active right now): when "boy" is selected,
+    // hide school id 12 (lat 6.97149999123592, lng 79.954849107753 —
+    // "Sapugaskanda Vishaka Balika Vidyalaya").
     const eligibleSchools = customSchoolList.filter(school => {
 
         if (school.id === targetSchoolPlaceId) return false;
         if (excludedPlaceIds.includes(school.id)) return false;
 
-        if (studentGender === "girl" && school.id === 13) return false;
         if (studentGender === "boy" && school.id === 12) return false;
 
         return true;
