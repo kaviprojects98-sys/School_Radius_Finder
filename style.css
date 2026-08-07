@@ -124,29 +124,36 @@ button:active {
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* ---------------- DISTANCE HUD ---------------- */
+/* ---------------- DISTANCE HUD ----------------
+   Made bigger and clearer, and now caps its own height with a scrollbar
+   (max-height + overflow-y) so that when the school names list expands
+   it doesn't run off the bottom of the screen. */
 #distanceBox {
     position: fixed;
     top: 190px auto;
     right: 15px;
-    background: rgba(255,255,255,0.95);
-    padding: 10px 14px;
+    background: rgba(255,255,255,0.97);
+    padding: 16px 20px;
     border-radius: 10px;
-    border: 1px solid #ddd;
+    border: 2px solid #4a90e2;
     font-weight: bold;
-    font-size: 14px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+    font-size: 16px;
+    line-height: 1.6;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
     z-index: 999999;
-    max-width: 280px;
+    max-width: 380px;
+    max-height: 75vh;
+    overflow-y: auto;
 }
 
 #toggleNamesBtn {
-    margin-top: 8px;
-    padding: 4px 10px;
-    font-size: 12px;
+    margin-top: 10px;
+    padding: 6px 14px;
+    font-size: 13px;
     cursor: pointer;
 }
 
+/* Default (hidden) state — unchanged from before */
 #schoolNamesList {
     margin-top: 8px;
     font-size: 12px;
@@ -156,6 +163,24 @@ button:active {
 #schoolNamesList ul {
     margin: 4px 0 0 18px;
     padding: 0;
+}
+
+/* Applied only while the list is actually shown (toggled by JS)
+   -> noticeably bigger and easier to read */
+#schoolNamesList.names-visible {
+    font-size: 16px;
+    line-height: 1.7;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+}
+
+#schoolNamesList.names-visible ul {
+    margin: 6px 0 0 20px;
+}
+
+#schoolNamesList.names-visible li {
+    margin-bottom: 5px;
 }
 
 /* ---------------- FULLSCREEN MODE (unused legacy, kept harmless) ---------------- */
@@ -198,6 +223,9 @@ body.print-mode #distanceBox {
     top: 12px;
     right: 12px;
     z-index: 999999;
+    /* On the printed page we want the full list visible, not scrollable */
+    max-height: none;
+    overflow: visible;
 }
 
 @media print {
@@ -252,6 +280,9 @@ body.print-mode #distanceBox {
         padding: 10px 14px;
         font-weight: normal;
         box-shadow: none;
+        /* Full list must print, never clipped/scrollable */
+        max-height: none;
+        overflow: visible;
     }
 
     .gm-style {
