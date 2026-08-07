@@ -8,9 +8,7 @@
 window.location.href = "login.html";
 </script>-->
 </head>
-
 <body>
-
 <div id="customPopupOverlay" style="
     display: none;
     position: fixed;
@@ -39,27 +37,44 @@ window.location.href = "login.html";
         ">OK</button>
     </div>
 </div>
-
 <h2>School Radius Finder</h2>
 
+<!-- NEW: Barcode / QR scanner input.
+     This field stays focused automatically so a barcode/QR scanner
+     (which behaves like a keyboard) can "type" a scanned code into it
+     at any time. On Enter, the scanned text is parsed and the whole
+     form below is filled in and analyzed automatically.
+     It's visible so you can see scans arrive, but you never need to
+     click into it yourself. -->
+<div class="scan-box" style="
+    margin: 10px 0;
+    padding: 10px;
+    border: 2px dashed #0066ff;
+    border-radius: 6px;
+    background: #f0f6ff;
+">
+    <label for="barcodeScanInput" style="display:block; font-weight:bold; margin-bottom:4px;">
+        📷 Scan Barcode / QR Code Here
+    </label>
+    <input id="barcodeScanInput" type="text"
+           placeholder="Ready to scan..."
+           autocomplete="off"
+           style="width: 100%; box-sizing: border-box; padding: 6px; font-size: 14px;">
+</div>
 
 <div class="controls">
-
 <input id="studentAddress" placeholder="Student Address">
 <button onclick="searchStudent()">Search Student</button>
 <button onclick="confirmStudent()">Confirm Student Position</button>
-
 <!-- NEW: search the student's location using a shared map link -->
 <input id="studentLink" placeholder="Paste location link (e.g. Google Maps link)">
 <button onclick="locateFromLink()">Locate from Link</button>
-
 <div class="autocomplete-wrapper">
     <input id="schoolAddress" placeholder="Type school name..." autocomplete="off"
            oninput="filterSchoolDropdown()" onfocus="filterSchoolDropdown()">
     <div id="schoolDropdown" class="autocomplete-dropdown"></div>
 </div>
 <button onclick="confirmSchool()">Confirm School Position</button>
-
 <!-- NEW: dropdown shown before Customer Number.
      PLACEHOLDER options below — rename these to whatever values you need,
      e.g. Order Type, Priority Level, School Type, etc. -->
@@ -69,19 +84,17 @@ window.location.href = "login.html";
     <option value="category2">Category 2 (PLACEHOLDER)</option>
     <option value="category3">Category 3 (PLACEHOLDER)</option>
 </select>
-
 <input id="customerNumber" placeholder="Customer Number">
-
 <select id="studentGender">
     <option value="">Select Gender</option>
     <option value="boy">Boy</option>
     <option value="girl">Girl</option>
 </select>
-
 <button onclick="analyze()">Generate Analysis</button>
 <button id="printbtn" onclick="focusCircleForPrint()">Print Report</button>
+<!-- NEW: reset button clears every field, marker, circle and result -->
+<button id="resetbtn" onclick="resetForm()" style="background:#cc0000; color:white;">Reset</button>
 </div>
-
 <div id="distanceBox">
     <div id="distanceInfo">Distance: --</div>
     <button id="toggleNamesBtn" onclick="toggleSchoolNames()">Hide School Names</button>
@@ -89,13 +102,10 @@ window.location.href = "login.html";
 </div>
     
 <div id="map"></div>
-
     <button onclick="logout()">Logout</button>
-
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs3GeBNpVuEcinoADDFvxa7djBVcRXU5U&libraries=places&callback=initMap"></script>
 <script type="module" src="auth.js"></script>
 <script type="module" src="script.js"></script>
-
 </body>
 </html>
