@@ -28,7 +28,7 @@ let targetSchoolPlaceId = null;
 const SEARCH_RADIUS_BUFFER_KM = 0.5;
 
 let customerNumber = "";
-let customerCategory = "";
+
 let studentGender = "";
 let schoolNamesVisible = true;
 
@@ -307,7 +307,7 @@ function analyze() {
     }
 
     customerNumber = document.getElementById("customerNumber").value;
-    customerCategory = document.getElementById("customerCategory").value;
+    
     studentGender = document.getElementById("studentGender").value;
 
     schoolMarkers.forEach(m => m.setMap(null));
@@ -396,18 +396,12 @@ function filterCustomSchools(exactRadiusKm, searchRadiusKm) {
         return distance <= exactRadiusKm;
     });
 
-    // Human-readable label for the category dropdown's selected value.
-    const categoryLabelMap = {
-        category1: "Category 1",
-        category2: "Category 2",
-        category3: "Category 3"
-    };
-    const categoryDisplay = categoryLabelMap[customerCategory] || "--";
+  
 
     document.getElementById("distanceInfo").innerHTML =
         "<b>Distance:</b> " + exactRadiusKm.toFixed(2) + " km" +
         "<br><b>Schools Found:</b> " + visibleSchools.length +
-        "<br><b>Category:</b> " + categoryDisplay +
+        
         "<br><b>Customer Number:</b> " + (customerNumber || "--") +
         "<br><b>Student Gender:</b> " + (studentGender ? (studentGender === "boy" ? "Boy" : "Girl") : "--") +
         "<br><b>Student Position:</b> " + studentPos.lat + ", " + studentPos.lng;
@@ -716,7 +710,7 @@ function resetForm() {
     document.getElementById("schoolAddress").value = "";
     document.getElementById("schoolDropdown").innerHTML = "";
     document.getElementById("schoolDropdown").style.display = "none";
-    document.getElementById("customerCategory").value = "";
+    
     document.getElementById("customerNumber").value = "";
     document.getElementById("studentGender").value = "";
 
@@ -735,7 +729,7 @@ function resetForm() {
     targetSchoolPlaceId = null;
     excludedPlaceIds = [];
     customerNumber = "";
-    customerCategory = "";
+    
     studentGender = "";
 
     document.getElementById("distanceInfo").innerHTML = "Distance: --";
