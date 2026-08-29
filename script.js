@@ -411,10 +411,10 @@ function filterCustomSchools(exactRadiusKm, searchRadiusKm) {
     });
 
   
-
+    document.getElementById("schoolCountCircle").textContent = visibleSchools.length;
     document.getElementById("distanceInfo").innerHTML =
         "<b>Distance:</b> " + exactRadiusKm.toFixed(2) + " km" +
-        "<br><b>Schools Found:</b> " + visibleSchools.length +
+        
         
         "<br><b>Customer Number:</b> " + (customerNumber || "--") +
         "<br><b>Student Gender:</b> " + (studentGender ? (studentGender === "boy" ? "Boy" : "Girl") : "--") +
@@ -727,7 +727,7 @@ function resetForm() {
     
     document.getElementById("customerNumber").value = "";
     document.getElementById("studentGender").value = "";
-
+    document.getElementById("schoolCountCircle").textContent = "0";
     if (studentMarker) { studentMarker.setMap(null); studentMarker = null; }
     if (schoolMarker) { schoolMarker.setMap(null); schoolMarker = null; }
     if (circle) { circle.setMap(null); circle = null; }
