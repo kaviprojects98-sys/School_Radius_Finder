@@ -46,8 +46,21 @@ const customSchoolList = [
     { id: 9,  lat: 7.000526097123138, lng: 79.95337446706961, name: "Baptist Primary Vidyalaya" },
     { id: 10, lat: 7.0022602670911525, lng: 79.958393180104,  name: "Puwakwetiya Vidyalaya" },
     { id: 11, lat: 6.99814461154881,  lng: 79.96942271901023, name: "Pemananda Vidyalaya" },
-    { id: 12, lat: 6.97149999123592,  lng: 79.954849107753,   name: "Sapugaskanda Vishaka Balika Vidyalaya" },
-    { id: 13, lat: 6.974357120489106, lng: 79.95293204566329, name: "Sapugaskanda Sobitha Vidyalaya" }
+    { id: 12, lat: 6.97149999123592,  lng: 79.954849107753,   name: "Sapugaskanda Vishaka Balika Vidyalaya", girlsOnly: true },
+    { id: 13, lat: 6.974357120489106, lng: 79.95293204566329, name: "Sapugaskanda Sobitha Vidyalaya" },
+
+    // ---- new schools ----
+    { id: 14, lat: 7.031307443444814, lng: 80.0066586795863,  name: "Vidyadeepa Maha Vidyalaya Weboda North" },
+    { id: 15, lat: 7.016376929421298, lng: 79.96900272119677, name: "Kirillawala Primary School" },
+    { id: 16, lat: 7.016685702520541, lng: 80.02492247967925, name: "Mihindu Kanishta Vidyalaya" },
+    { id: 17, lat: 7.002526678375252, lng: 79.94458114071996, name: "Mahabodi Primary School" },
+    { id: 18, lat: 7.031748818798701, lng: 80.03127939619003, name: "Madduma Bandara Primary School" },
+    { id: 19, lat: 6.959018729238134, lng: 79.96631926363955, name: "Mahinda Maha Vidyalaya" },
+    { id: 20, lat: 6.963158462636454, lng: 80.00944903400611, name: "Subashi Rajakiya Vidyalaya" },
+    { id: 21, lat: 6.94467668405531,  lng: 79.9481958088862,  name: "Bollegala Maha Vidyalaya" },
+    { id: 22, lat: 7.290571987667287, lng: 80.64442037263571, name: "Mahamaya Primary School Vidyalaya", girlsOnly: true },
+    { id: 23, lat: 6.9809510985514,   lng: 79.92797495120664, name: "Viharamahadevi Balika Vidyalaya", girlsOnly: true },
+    { id: 24, lat: 6.975964825886117, lng: 79.92594007711477, name: "D. A. Rajapaksha Vidyalaya" }
 ];
 
 // ---------------- INIT MAP ----------------
@@ -357,15 +370,16 @@ function filterCustomSchools(exactRadiusKm, searchRadiusKm) {
     // showed up on the map even though it correctly disappeared from the
     // count and the names list.
     //
-    // Gender rule (only one active right now): when "boy" is selected,
-    // hide school id 12 (lat 6.97149999123592, lng 79.954849107753 —
-    // "Sapugaskanda Vishaka Balika Vidyalaya").
+    // Gender rule: when "boy" is selected, hide any school flagged
+    // girlsOnly: true in customSchoolList (currently: Sapugaskanda
+    // Vishaka Balika Vidyalaya, Mahamaya Primary School Vidyalaya,
+    // Viharamahadevi Balika Vidyalaya).
     const eligibleSchools = customSchoolList.filter(school => {
 
         if (school.id === targetSchoolPlaceId) return false;
         if (excludedPlaceIds.includes(school.id)) return false;
 
-        if (studentGender === "boy" && school.id === 12) return false;
+        if (studentGender === "boy" && school.girlsOnly) return false;
 
         return true;
     });
