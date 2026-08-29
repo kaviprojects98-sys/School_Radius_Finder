@@ -125,16 +125,15 @@ button:active {
 }
 
 /* ---------------- SCHOOL COUNT CIRCLE ----------------
-   Big, high-contrast circular badge that sits just to the LEFT of
-   #distanceBox and shows the "Schools Found" number on its own, in
-   large bold text, so it's readable at a glance.
-   Populated by JS: document.getElementById("schoolCountCircle").textContent = visibleSchools.length;
-   Positioned with the same "top" as #distanceBox and "right" set so
-   its right edge sits just left of the box (box max-width 380px + gap). */
+   Big, high-contrast circular badge showing the "Schools Found" number
+   on its own, in large bold text. Pinned to a fixed screen CORNER
+   (top-left) instead of being positioned relative to #distanceBox, so
+   it always sits cleanly in the corner regardless of the box's size.
+   Populated by JS: document.getElementById("schoolCountCircle").textContent = visibleSchools.length; */
 #schoolCountCircle {
     position: fixed;
-    top: 190px;
-    right: 410px;
+    top: 15px;
+    left: 15px;
     width: 100px;
     height: 100px;
     border-radius: 50%;
@@ -256,10 +255,12 @@ body.print-mode #distanceBox {
     overflow: visible;
 }
 
+/* Print corner: kept on the opposite side (top-left) from #distanceBox
+   (top-right), so the two never overlap on the printed page. */
 body.print-mode #schoolCountCircle {
     position: fixed !important;
     top: 12px;
-    right: 130px;
+    left: 12px;
     z-index: 999999;
 }
 
@@ -324,7 +325,7 @@ body.print-mode #schoolCountCircle {
     #schoolCountCircle {
         position: fixed !important;
         top: 12px;
-        right: 130px;
+        left: 12px;
         margin: 0;
         z-index: 999999;
         box-shadow: none;
