@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <title>School Radius Finder</title>
 <link rel="stylesheet" href="style.css">
+<!-- Camera QR scanning library — decodes QR codes from the phone's
+     camera feed in the browser. Requires HTTPS (or localhost) since
+     browsers block camera access on plain HTTP. -->
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <!--<script>
 window.location.href = "login.html";
 </script>-->
@@ -37,8 +41,32 @@ window.location.href = "login.html";
         ">OK</button>
     </div>
 </div>
-<h2>School Radius Finder</h2>
 
+<!-- NEW: Camera QR scan modal. Hidden until "Scan with Camera" is
+     pressed. html5-qrcode renders the live camera feed inside
+     #qrReader and calls back into script.js when it decodes a code. -->
+<div id="cameraScanModal" style="
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85);
+    z-index: 3000;
+">
+    <div id="qrReader" style="width: 320px; max-width: 90vw; margin: 60px auto 0;"></div>
+    <button onclick="stopCameraScan()" style="
+        display: block;
+        margin: 15px auto;
+        padding: 8px 24px;
+        background: #cc0000;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    ">Cancel</button>
+</div>
+
+<h2>School Radius Finder</h2>
 <!-- NEW: Barcode / QR scanner input.
      This field stays focused automatically so a barcode/QR scanner
      (which behaves like a keyboard) can "type" a scanned code into it
@@ -60,8 +88,10 @@ window.location.href = "login.html";
            placeholder="Ready to scan..."
            autocomplete="off"
            style="width: 100%; box-sizing: border-box; padding: 6px; font-size: 14px;">
+    <!-- NEW: opens the phone's camera to scan a QR code directly,
+         for when there's no hardware barcode/QR scanner available. -->
+    <button onclick="startCameraScan()" style="margin-top: 8px;">📷 Scan with Camera</button>
 </div>
-
 <div class="controls">
 <input id="studentAddress" placeholder="Student Address">
 <button onclick="searchStudent()">Search Student</button>
@@ -75,7 +105,6 @@ window.location.href = "login.html";
     <div id="schoolDropdown" class="autocomplete-dropdown"></div>
 </div>
 <button onclick="confirmSchool()">Confirm School Position</button>
-
 <input id="customerNumber" placeholder="Customer Number">
 <select id="studentGender">
     <option value="">Select Gender</option>
@@ -87,8 +116,6 @@ window.location.href = "login.html";
 <!-- NEW: reset button clears every field, marker, circle and result -->
 <button id="resetbtn" onclick="resetForm()" style="background:#cc0000; color:white;">Reset</button>
 </div>
-
-
 <div id="schoolCountCircle">0</div>    
 <div id="distanceBox">
     <div id="distanceInfo">Distance: --</div>
