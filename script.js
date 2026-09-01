@@ -60,7 +60,7 @@ const customSchoolList = [
     { id: 21, lat: 6.94467668405531,  lng: 79.9481958088862,  name: "Bollegala Maha Vidyalaya" },
     { id: 22, lat: 7.290571987667287, lng: 80.64442037263571, name: "Mahamaya Primary School", girlsOnly: true },
     { id: 23, lat: 6.9809510985514,   lng: 79.92797495120664, name: "Viharamahadevi Balika Vidyalaya", girlsOnly: true },
-    { id: 24, lat: 6.975964825886117, lng: 79.92594007711477, name: "D. A. Rajapaksha Vidyalaya" }
+    { id: 24, lat: 6.975964825886117, lng: 79.92594007711477, name: "D. A. Rajapaksha Vidyalaya" },
     { id: 25, lat: 6.948605514897242, lng: 80.00693183248353, name: "Ananda Kanishta Vidyalaya Yabaraluwa" }
 ];
 
