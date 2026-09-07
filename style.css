@@ -157,7 +157,7 @@ button:active {
    it doesn't run off the bottom of the screen. */
 #distanceBox {
     position: fixed;
-    top: 190px;
+    top: 190px auto;
     left: 15px;
     background: rgba(255,255,255,0.97);
     padding: 12px 15px;
