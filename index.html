@@ -42,7 +42,9 @@ window.location.href = "login.html";
     </div>
 </div>
 
-<!-- Camera QR scan modal. Hidden until "Scan with Camera" is pressed. -->
+<!-- NEW: Camera QR scan modal. Hidden until "Scan with Camera" is
+     pressed. html5-qrcode renders the live camera feed inside
+     #qrReader and calls back into script.js when it decodes a code. -->
 <div id="cameraScanModal" style="
     display: none;
     position: fixed;
@@ -65,7 +67,13 @@ window.location.href = "login.html";
 </div>
 
 <h2>School Radius Finder</h2>
-
+<!-- NEW: Barcode / QR scanner input.
+     This field stays focused automatically so a barcode/QR scanner
+     (which behaves like a keyboard) can "type" a scanned code into it
+     at any time. On Enter, the scanned text is parsed and the whole
+     form below is filled in and analyzed automatically.
+     It's visible so you can see scans arrive, but you never need to
+     click into it yourself. -->
 <div class="scan-box" style="
     margin: 10px 0;
     padding: 10px;
@@ -80,12 +88,15 @@ window.location.href = "login.html";
            placeholder="Ready to scan..."
            autocomplete="off"
            style="width: 100%; box-sizing: border-box; padding: 6px; font-size: 14px;">
+    <!-- NEW: opens the phone's camera to scan a QR code directly,
+         for when there's no hardware barcode/QR scanner available. -->
     <button onclick="startCameraScan()" style="margin-top: 8px;">📷 Scan with Camera</button>
 </div>
 <div class="controls">
 <input id="studentAddress" placeholder="Student Address">
 <button onclick="searchStudent()">Search Student</button>
 <button onclick="confirmStudent()">Confirm Student Position</button>
+<!-- NEW: search the student's location using a shared map link -->
 <input id="studentLink" placeholder="Paste location link (e.g. Google Maps link)">
 <button onclick="locateFromLink()">Locate from Link</button>
 <div class="autocomplete-wrapper">
@@ -102,31 +113,18 @@ window.location.href = "login.html";
 </select>
 <button onclick="analyze()">Generate Analysis</button>
 <button id="printbtn" onclick="focusCircleForPrint()">Print Report</button>
+<!-- NEW: reset button clears every field, marker, circle and result -->
 <button id="resetbtn" onclick="resetForm()" style="background:#cc0000; color:white;">Reset</button>
 </div>
-
-<!--
-  MOVED: #schoolCountCircle and #distanceBox are now INSIDE #map
-  (instead of being siblings of it).
-
-  Why: when the native Google Maps fullscreen control is used, the
-  browser's Fullscreen API only renders the fullscreened element (#map)
-  and its DESCENDANTS. Any sibling element — even position:fixed with a
-  huge z-index — is hidden while fullscreen is active, because it lives
-  outside the fullscreened subtree. Making these two divs children of
-  #map means they stay in that subtree and keep showing up (still fixed
-  to the top corners) both in and out of fullscreen.
--->
-<div id="map">
-    <div id="schoolCountCircle">0</div>
-    <div id="distanceBox">
-        <div id="distanceInfo">Distance: --</div>
-        <button id="toggleNamesBtn" onclick="toggleSchoolNames()">Hide School Names</button>
-        <div id="schoolNamesList"></div>
-    </div>
+<div id="schoolCountCircle">0</div>    
+<div id="distanceBox">
+    <div id="distanceInfo">Distance: --</div>
+    <button id="toggleNamesBtn" onclick="toggleSchoolNames()">Hide School Names</button>
+    <div id="schoolNamesList"></div>
 </div>
-
-<button onclick="logout()">Logout</button>
+    
+<div id="map"></div>
+    <button onclick="logout()">Logout</button>
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs3GeBNpVuEcinoADDFvxa7djBVcRXU5U&libraries=places&callback=initMap"></script>
 <script type="module" src="auth.js"></script>
