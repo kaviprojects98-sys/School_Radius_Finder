@@ -157,18 +157,18 @@ button:active {
    it doesn't run off the bottom of the screen. */
 #distanceBox {
     position: fixed;
-    top: 190px auto;
-    right: 15px;
+    top: 190px;
+    left: 15px;
     background: rgba(255,255,255,0.97);
-    padding: 16px 20px;
+    padding: 12px 15px;
     border-radius: 10px;
     border: 2px solid #4a90e2;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 12px;
     line-height: 1.6;
     box-shadow: 0 4px 14px rgba(0,0,0,0.15);
     z-index: 999999;
-    max-width: 380px;
+    max-width: 285px;
     max-height: 75vh;
     overflow-y: auto;
 }
@@ -217,6 +217,23 @@ button:active {
 
 .preview-mode #map {
     height: 100%;
+}
+
+.preview-mode #distanceBox {
+    display: block !important;
+    position: fixed !important;
+    top: 130px;
+    left: 15px;
+    right: auto;
+    z-index: 999999;
+}
+
+.preview-mode #schoolCountCircle {
+    display: flex !important;
+    position: fixed !important;
+    top: 15px;
+    right: 15px;
+    z-index: 999999;
 }
 
 /* ============================================================
